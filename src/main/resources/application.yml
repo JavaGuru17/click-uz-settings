@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/clickuzsettings
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: 123321
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+jwt:
+  token:
+    secret:
+      expiry: 86400000
+      key: V2OOdV3rwPOeY-2xBzySAKXJK_-ABzuKYzZK5K7XBfI
