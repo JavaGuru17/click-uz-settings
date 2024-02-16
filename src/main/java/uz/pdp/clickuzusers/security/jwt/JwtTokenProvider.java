@@ -18,13 +18,13 @@ public class JwtTokenProvider {
     private String key;
 
     @Value("${jwt.token.secret.expiry}")
-    private String expiry;
+    private Long expiry;
 
     public String generateToken(User user){
         return Jwts.builder()
                 .subject(user.getPhoneNumber())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + Long.parseLong(expiry)))
+                .expiration(new Date(System.currentTimeMillis() + expiry))
                 .signWith(key())
                 .compact();
     }

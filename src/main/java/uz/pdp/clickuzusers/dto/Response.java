@@ -1,4 +1,4 @@
-package uz.pdp.clickuzusers.dto.responce;
+package uz.pdp.clickuzusers.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class SuccessResponse {
+public class Response {
     private String message;
     private LocalDateTime time = LocalDateTime.now();
-    public SuccessResponse(){
+    public Response(){
         this.message = "Successfully";
     }
-    public SuccessResponse(String message){
+    public Response(String message){
         this.message = message;
     }
 }

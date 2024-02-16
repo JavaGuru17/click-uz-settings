@@ -1,14 +1,6 @@
 package uz.pdp.clickuzusers.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,18 +36,13 @@ public class User extends Auditing{
     @Length(fieldName = "user middle name", min = 3, max = 50)
     private String middleName;
     @Enumerated(EnumType.STRING)
-    @NotNull
     private Gender gender;
     private String passport;
     private String JShShIR;
-    @NotNull
     private LocalDate dateOfIssue;
-    @NotNull
     private LocalDate expiryDate;
-    @NotNull
     private LocalDate dateOfBirth;
     @Enumerated(EnumType.STRING)
-    @NotNull
     private Region region;
     @uz.pdp.clickuzusers.util.annotations.PIN
     private String PIN;
@@ -64,11 +51,13 @@ public class User extends Auditing{
     @Password
     private String password;
     @ToString.Exclude
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Role> roles;
     @OneToMany
+    @ToString.Exclude
     private List<CardId> cardIds;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ToString.Exclude
     private List<Device> devices;
 }
 

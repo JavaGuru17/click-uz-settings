@@ -1,15 +1,25 @@
 spring:
+  application:
+    name: click-uz-settings
   datasource:
-    url: jdbc:postgresql://localhost:5432/clickuzsettings
+    url: jdbc:postgresql://localhost:5432/click_uz_settings
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: 123321
+    password: ismoil_0709
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+  config:
+    import: optional:configserver:http://localhost:8101
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8741/eureka
 jwt:
   token:
     secret:
       expiry: 86400000
       key: V2OOdV3rwPOeY-2xBzySAKXJK_-ABzuKYzZK5K7XBfI
+server:
+  port: 5050

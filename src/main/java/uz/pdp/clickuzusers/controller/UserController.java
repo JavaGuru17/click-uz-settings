@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uz.pdp.clickuzusers.dto.UserDto;
-import uz.pdp.clickuzusers.dto.responce.SuccessResponse;
+import uz.pdp.clickuzusers.dto.Response;
 import uz.pdp.clickuzusers.model.enums.Gender;
 import uz.pdp.clickuzusers.model.enums.Region;
 import uz.pdp.clickuzusers.service.UserService;
@@ -26,13 +26,11 @@ public class UserController {
     public ResponseEntity<?> update(@RequestBody UserDto userDto) {
         return ResponseEntity.ok(userService.update(userDto));
     }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<SuccessResponse> delete(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Response> delete(@PathVariable Long id) {
         userService.delete(id);
-        return ResponseEntity.ok(new SuccessResponse("User deleted"));
+        return ResponseEntity.ok(new Response("User deleted"));
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getById(id));

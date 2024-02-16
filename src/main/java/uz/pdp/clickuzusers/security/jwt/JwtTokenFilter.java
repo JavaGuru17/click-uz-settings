@@ -1,6 +1,7 @@
 package uz.pdp.clickuzusers.security.jwt;
 
 import io.jsonwebtoken.Claims;
+import io.micrometer.common.lang.NonNullApi;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
+@NonNullApi
 public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
@@ -31,6 +33,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String token = request.getHeader(AUTHORIZATION);
         if (token != null && token.startsWith(BEARER)) {
             token = token.split(" ")[1];
+            System.out.println(token);
             if (jwtTokenProvider.isValid(token)) {
                 Claims claims = jwtTokenProvider.parseAllClaims(token);
                 Optional<User> user = userRepository.findByPhoneNumber(claims.getSubject());

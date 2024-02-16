@@ -33,27 +33,21 @@ public class UserDto {
     @Length(fieldName = "user middle name", min = 3, max = 50)
     private String middleName;
     @Enumerated(EnumType.STRING)
-    @NotNull
     private Gender gender;
     private String passport;
     private String JShShIR;
-    @NotNull
     private LocalDate dateOfIssue;
-    @NotNull
     private LocalDate expiryDate;
-    @NotNull
     private LocalDate dateOfBirth;
-    @NotNull
     private Region region;
     @uz.pdp.clickuzusers.util.annotations.PIN
     private String PIN;
     @PhoneNumber
     private String phoneNumber;
-    private List<CardId> cardIds;
-    private List<Device> devices;
     public UserDto(User user){
         this.id = user.getId();
         this.name = user.getName();
+        this.surname = user.getSurname();
         this.middleName = user.getMiddleName();
         this.gender = user.getGender();
         this.passport = user.getPassport();
@@ -64,10 +58,6 @@ public class UserDto {
         this.region = user.getRegion();
         this.PIN = user.getPIN();
         this.phoneNumber = user.getPhoneNumber();
-        if (user.getCardIds() != null)
-            this.cardIds = user.getCardIds();
-        if (user.getDevices() != null)
-            this.devices = user.getDevices();
     }
 }
 

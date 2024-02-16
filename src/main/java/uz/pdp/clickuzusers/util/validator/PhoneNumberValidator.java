@@ -10,7 +10,7 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, St
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value == null)
             return true;
-        if (value.matches("\\+998[1-9][0-9]{6}"))
+        if (value.matches("^\\+998\\d{2}\\d{3}\\d{2}\\d{2}$"))
             return true;
         throw new InvalidArgumentException("Phone number");
     }

@@ -1,6 +1,10 @@
 package uz.pdp.clickuzusers.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.pdp.clickuzusers.dto.JwtDto;
@@ -11,6 +15,7 @@ import uz.pdp.clickuzusers.exception.AlreadyExistsException;
 import uz.pdp.clickuzusers.exception.InvalidArgumentException;
 import uz.pdp.clickuzusers.exception.NotFoundException;
 import uz.pdp.clickuzusers.exception.NullOrEmptyException;
+import uz.pdp.clickuzusers.model.Device;
 import uz.pdp.clickuzusers.model.Role;
 import uz.pdp.clickuzusers.model.User;
 import uz.pdp.clickuzusers.model.enums.Region;
@@ -34,16 +39,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public JwtDto register(UserRegisterDto userRegisterDto) {
-        if (userRegisterDto.getId() == null)
-            throw new NullOrEmptyException("Id");
-        if (userRepository.findById(userRegisterDto.getId()).isPresent())
-            throw new AlreadyExistsException("This user id");
+        if (userRegisterDto.getPassportDataDto() == null)
+            throw new NullOrEmptyException("Passport Data");
+        if (Validator.isNullOrEmpty(userRegisterDto.getPassword()))
+            throw new NullOrEmptyException("Password");
         if (Validator.isNullOrEmpty(userRegisterDto.getPassportDataDto().getName()))
             throw new NullOrEmptyException("Name");
         if (Validator.isNullOrEmpty(userRegisterDto.getPassportDataDto().getSurname()))
             throw new NullOrEmptyException("Surname");
-        if (Validator.isNullOrEmpty(userRegisterDto.getPassportDataDto().getMiddleName()))
-            throw new NullOrEmptyException("Middle name");
         if (Validator.isNullOrEmpty(userRegisterDto.getPassportDataDto().getPassport()))
             throw new NullOrEmptyException("Passport");
         if (userRepository.findByPassport(userRegisterDto.getPassportDataDto().getPassport()).isPresent())
@@ -124,6 +127,7 @@ public class UserServiceImpl implements UserService {
                 .surname(Validator.requireNonNullElse(userDto.getSurname(), existingUser.getSurname()))
                 .middleName(Validator.requireNonNullElse(userDto.getMiddleName(), existingUser.getMiddleName()))
                 .passport(Validator.requireNonNullElse(userDto.getPassport(), existingUser.getPassport()))
+                .gender(Validator.requireNonNullElse(userDto.getGender(),existingUser.getGender()))
                 .JShShIR(Validator.requireNonNullElse(userDto.getJShShIR(), existingUser.getJShShIR()))
                 .dateOfIssue(Validator.requireNonNullElse(userDto.getDateOfIssue(), existingUser.getDateOfIssue()))
                 .expiryDate(Validator.requireNonNullElse(userDto.getExpiryDate(), existingUser.getExpiryDate()))

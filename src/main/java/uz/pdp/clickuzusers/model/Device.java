@@ -23,7 +23,7 @@ import java.time.LocalDate;
 @ToString
 @Builder
 @Entity
-public class Device extends Auditing{
+public class Device{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

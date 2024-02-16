@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import uz.pdp.clickuzusers.security.filter.DeviceFilter;
 import uz.pdp.clickuzusers.security.jwt.JwtTokenFilter;
 
 @Configuration
@@ -24,16 +25,18 @@ import uz.pdp.clickuzusers.security.jwt.JwtTokenFilter;
 )
 public class SecurityConfiguration {
     private final JwtTokenFilter jwtTokenFilter;
+    private final DeviceFilter deviceFilter;
 
     @Bean
     @SneakyThrows
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(registry ->
-                registry.requestMatchers("/auth/**","/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                    registry.requestMatchers("/verify","/auth/**","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
         );
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(deviceFilter, JwtTokenFilter.class);
         return http.build();
     }
     @Bean
