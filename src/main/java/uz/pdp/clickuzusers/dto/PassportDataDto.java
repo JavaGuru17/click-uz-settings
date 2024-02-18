@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import uz.pdp.clickuzusers.model.enums.Region;
-import uz.pdp.clickuzusers.util.annotations.Length;
+import uz.pdp.clickuzusers.util.annotations.*;
 
 import java.time.LocalDate;
 
@@ -17,14 +17,15 @@ public class PassportDataDto {
     private String surname;
     @Length(fieldName = "user middle name", min = 3, max = 50)
     private String middleName;
+    @Password
     private String passport;
+    @uz.pdp.clickuzusers.util.annotations.JShShIR
     private String JShShIR;
-    @NotNull
+    @DateOfIssue
     private LocalDate dateOfIssue;
-    @NotNull
+    @ExpiryDate
     private LocalDate expiryDate;
-    @NotNull
+    @DateOfBirth
     private LocalDate dateOfBirth;
-    @NotNull
     private Region region;
 }

@@ -1,7 +1,6 @@
 package uz.pdp.clickuzusers.util;
 
 import lombok.experimental.UtilityClass;
-import uz.pdp.clickuzusers.exception.NullOrEmptyException;
 
 import java.util.List;
 
