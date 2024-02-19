@@ -2,12 +2,10 @@ package uz.pdp.clickuzusers.controller;
 
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import uz.pdp.clickuzusers.dto.CustomResponseEntity;
 import uz.pdp.clickuzusers.model.Role;
 import uz.pdp.clickuzusers.model.User;
 import uz.pdp.clickuzusers.repository.UserRepository;
@@ -23,19 +21,20 @@ public class TokenController {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     @GetMapping("/verify")
-    public ResponseEntity<?> verify(@RequestParam String token) {
+    public CustomResponseEntity<?> verify(@RequestParam String token) {
         if (!Validator.isNullOrEmpty(token)) {
+            System.out.println(token);
             if (jwtTokenProvider.isValid(token)) {
                 Claims claims = jwtTokenProvider.parseAllClaims(token);
                 Optional<User> user = userRepository.findByPhoneNumber(claims.getSubject());
                 if (user.isPresent()) {
                     User user1 = user.get();
-                    return ResponseEntity.ok(new ClickUzAuthentication(user1.getPhoneNumber(), null,
+                    return CustomResponseEntity.ok(new ClickUzAuthentication(user1.getPhoneNumber(), null,
                             user1.getRoles().stream().map(Role::getRole).toList()
                     ));
                 }
             }
         }
-        return ResponseEntity.ok(null);
+        return CustomResponseEntity.ok(null);
     }
 }
