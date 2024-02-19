@@ -2,22 +2,17 @@ package uz.pdp.clickuzusers.dto;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import uz.pdp.clickuzusers.model.CardId;
-import uz.pdp.clickuzusers.model.Device;
 import uz.pdp.clickuzusers.model.User;
 import uz.pdp.clickuzusers.model.enums.Gender;
 import uz.pdp.clickuzusers.model.enums.Region;
-import uz.pdp.clickuzusers.util.annotations.Length;
-import uz.pdp.clickuzusers.util.annotations.PhoneNumber;
+import uz.pdp.clickuzusers.util.annotations.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,10 +29,15 @@ public class UserDto {
     private String middleName;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    @Password
     private String passport;
+    @uz.pdp.clickuzusers.util.annotations.JShShIR
     private String JShShIR;
+    @DateOfIssue
     private LocalDate dateOfIssue;
+    @ExpiryDate
     private LocalDate expiryDate;
+    @DateOfBirth
     private LocalDate dateOfBirth;
     private Region region;
     @uz.pdp.clickuzusers.util.annotations.PIN

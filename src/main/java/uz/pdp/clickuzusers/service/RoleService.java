@@ -6,7 +6,6 @@ import uz.pdp.clickuzusers.dto.RoleDto;
 import uz.pdp.clickuzusers.model.Role;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public interface RoleService {

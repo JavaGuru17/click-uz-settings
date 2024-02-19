@@ -15,7 +15,6 @@ import uz.pdp.clickuzusers.service.RoleService;
 import uz.pdp.clickuzusers.util.Validator;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

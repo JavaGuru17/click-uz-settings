@@ -25,7 +25,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DeviceFilter extends OncePerRequestFilter {
     private final UserRepository userRepository;
-//    private final Authentication authentication;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -55,6 +55,6 @@ public class DeviceFilter extends OncePerRequestFilter {
                 userRepository.save(user);
             }
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 }

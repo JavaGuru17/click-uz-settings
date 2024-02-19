@@ -1,10 +1,6 @@
 package uz.pdp.clickuzusers.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.pdp.clickuzusers.dto.JwtDto;
@@ -15,7 +11,6 @@ import uz.pdp.clickuzusers.exception.AlreadyExistsException;
 import uz.pdp.clickuzusers.exception.InvalidArgumentException;
 import uz.pdp.clickuzusers.exception.NotFoundException;
 import uz.pdp.clickuzusers.exception.NullOrEmptyException;
-import uz.pdp.clickuzusers.model.Device;
 import uz.pdp.clickuzusers.model.Role;
 import uz.pdp.clickuzusers.model.User;
 import uz.pdp.clickuzusers.model.enums.Region;
@@ -26,7 +21,6 @@ import uz.pdp.clickuzusers.security.jwt.JwtTokenProvider;
 import uz.pdp.clickuzusers.service.UserService;
 import uz.pdp.clickuzusers.util.Validator;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -55,18 +49,6 @@ public class UserServiceImpl implements UserService {
             throw new NullOrEmptyException("JShShir");
         if (userRepository.findByJShShIR(userRegisterDto.getPassportDataDto().getJShShIR()).isPresent())
             throw new AlreadyExistsException("This JShShir");
-        if (userRegisterDto.getPassportDataDto().getDateOfIssue() == null)
-            throw new NullOrEmptyException("Date of issue");
-        if (userRegisterDto.getPassportDataDto().getDateOfIssue().isAfter(LocalDate.now()))
-            throw new InvalidArgumentException("Date of issue");
-        if (userRegisterDto.getPassportDataDto().getExpiryDate() == null)
-            throw new NullOrEmptyException("Expiry date");
-        if (userRegisterDto.getPassportDataDto().getExpiryDate().isBefore(LocalDate.now()))
-            throw new InvalidArgumentException("Expiry date");
-        if (userRegisterDto.getPassportDataDto().getDateOfBirth() == null)
-            throw new NullOrEmptyException("Date of birth");
-        if (userRegisterDto.getPassportDataDto().getDateOfBirth().isAfter(LocalDate.now()))
-            throw new InvalidArgumentException("Date of birth");
         if (userRegisterDto.getPassportDataDto().getRegion() == null)
             throw new NullOrEmptyException("Region");
         if (userRegisterDto.getPIN() == null)
