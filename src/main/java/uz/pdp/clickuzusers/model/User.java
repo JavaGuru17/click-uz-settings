@@ -10,8 +10,8 @@ import lombok.Setter;
 import lombok.ToString;
 import uz.pdp.clickuzusers.model.enums.Region;
 import uz.pdp.clickuzusers.model.enums.Gender;
-import uz.pdp.clickuzusers.util.annotations.JShShIR;
 import uz.pdp.clickuzusers.util.annotations.Length;
+import uz.pdp.clickuzusers.util.annotations.Passport;
 import uz.pdp.clickuzusers.util.annotations.Password;
 import uz.pdp.clickuzusers.util.annotations.PhoneNumber;
 
@@ -38,7 +38,7 @@ public class User extends Auditing{
     private String middleName;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @Password
+    @Passport
     private String passport;
     @uz.pdp.clickuzusers.util.annotations.JShShIR
     private String JShShIR;

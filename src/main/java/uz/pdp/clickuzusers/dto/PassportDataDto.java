@@ -17,7 +17,7 @@ public class PassportDataDto {
     private String surname;
     @Length(fieldName = "user middle name", min = 3, max = 50)
     private String middleName;
-    @Password
+    @Passport
     private String passport;
     @uz.pdp.clickuzusers.util.annotations.JShShIR
     private String JShShIR;
